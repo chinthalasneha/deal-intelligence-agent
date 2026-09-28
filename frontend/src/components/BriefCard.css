@@ -1,0 +1,561 @@
+/* ==========================================================================
+   BRIEFCARD COLOR PALETTE (CUSTOMIZE ALL COLORS HERE)
+   Change any color variable below to immediately customize this card!
+   ========================================================================== */
+:root {
+  /* --- 1. Background Colors --- */
+  --brief-bg-card: #f5eacc;
+  /* Outer card background (dark green) */
+  --brief-bg-inner-box: #054826;
+  /* Highlight boxes & AI briefing background */
+  --brief-bg-footer: #123e31;
+  /* Bottom quote banner background */
+  --brief-bg-pill: rgba(247, 244, 201, 0.12);
+  /* Call badge & competitor pill background */
+
+  /* --- 2. Text Colors --- */
+  --brief-text-title: #11100f;
+  /* Customer name "Rahul Sharma" & main headings */
+  --brief-text-body: #e3e3c6;
+  /* AI briefing content & metric values */
+  --brief-text-quote: #ececa0;
+  /* Customer quote italic text */
+  --brief-text-secondary: #e1da98;
+  /* Company name and secondary text */
+  --brief-text-date: #000000;
+  /* Call date label & icon (black) */
+  --brief-text-stage: #000000;
+  /* Deal stage label & value (black) */
+  --brief-text-muted: #d5ca79;
+  /* Sub-captions e.g. "Primary sales hurdle raised" */
+  --brief-metric-header-cream: #F7F4C9;
+  /* Competitor Mentioned & Current Sentiment header & icon (cream) */
+
+  /* --- 3. Accent & Border Colors --- */
+  --brief-accent: #121211;
+  /* Cream accent for icons (sparkles, quote, building) */
+  --brief-border-card: rgba(12, 12, 8, 0.18);
+  /* Outer card border */
+  --brief-border-inner: rgba(247, 244, 201, 0.12);
+  /* Inner dividers and box borders */
+  --brief-top-bar-start: #13130d;
+  /* Top gradient bar start */
+  --brief-top-bar-mid: #A8C9B8;
+  /* Top gradient bar middle */
+  --brief-top-bar-end: #ece9b9;
+  /* Top gradient bar end */
+
+  /* --- 4. "Copy Full Brief" Button --- */
+  --brief-btn-bg: #131918;
+  /* Button background */
+  --brief-btn-hover-bg: #164839;
+  /* Button hover background */
+  --brief-btn-text: #F7F4C9;
+  /* Button text color */
+  --brief-btn-border: rgba(247, 244, 201, 0.3);
+  /* Button border */
+
+  /* --- 5. Status & Sentiment Badges --- */
+  --brief-objection-color: #EF6B73;
+  /* Red for "Biggest Objection" */
+  --brief-objection-border: rgba(239, 107, 115, 0.4);
+  --brief-sentiment-hesitant: #EF6B73;
+  /* Red badge for Hesitant */
+  --brief-sentiment-warning: #E7B84B;
+  /* Amber badge for Warming Up */
+  --brief-sentiment-success: #4CC38A;
+  /* Green badge for Positive / Ready */
+}
+
+/* ==========================================================================
+   ELEMENT STYLES (WIRED TO THE PALETTE ABOVE)
+   ========================================================================== */
+
+/* Main Animated Wrapper */
+.brief-card-container {
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Outer Card Container */
+.brief-card {
+  position: relative;
+  background: var(--brief-bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--brief-border-card);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 30px rgba(7, 42, 32, 0.4);
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .brief-card {
+    padding: 2rem;
+    border-radius: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .brief-card {
+    padding: 2.5rem;
+  }
+}
+
+/* Glowing Top Accent Border */
+.brief-card-top-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brief-top-bar-start) 0%, var(--brief-top-bar-mid) 50%, var(--brief-top-bar-end) 100%);
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   Header: Title, Meta, and Action Button
+   -------------------------------------------------------------------------- */
+.brief-card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--brief-border-inner);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .brief-card-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.brief-card-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.brief-card-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Call Number Badge (e.g. Call #1 Briefing) */
+.brief-call-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--brief-bg-pill);
+  color: var(--brief-text-title);
+  border: 1px solid var(--brief-border-inner);
+  letter-spacing: 0.025em;
+}
+
+/* Call Date Label */
+.brief-date-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--brief-text-date, #000000);
+}
+
+.brief-date-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--brief-text-date, #000000);
+  opacity: 0.85;
+}
+
+/* Customer Headline (e.g. Rahul Sharma) */
+.brief-customer-name {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--brief-text-title);
+  letter-spacing: -0.02em;
+  margin-top: 0.35rem;
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .brief-customer-name {
+    font-size: 2rem;
+  }
+}
+
+/* Company, Stage, and Metadata */
+.brief-company-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--brief-text-secondary);
+  flex-wrap: wrap;
+}
+
+.brief-company-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--brief-accent);
+  flex-shrink: 0;
+}
+
+.brief-company-name {
+  color: var(--brief-text-title);
+  font-weight: 600;
+}
+
+.brief-meta-separator {
+  color: var(--brief-border-inner);
+  user-select: none;
+}
+
+.brief-stage-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--brief-text-stage, #000000);
+}
+
+.brief-stage-tag strong {
+  color: var(--brief-text-stage, #000000);
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.brief-stage-tag .brief-date-icon {
+  color: var(--brief-text-stage, #000000);
+}
+
+/* Copy Full Brief Button */
+.brief-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: 0.85rem;
+  background: var(--brief-btn-bg);
+  color: var(--brief-btn-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--brief-btn-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .brief-copy-btn {
+    align-self: center;
+  }
+}
+
+.brief-copy-btn:hover {
+  background: var(--brief-btn-hover-bg);
+  border-color: rgba(247, 244, 201, 0.5);
+  transform: translateY(-1px);
+}
+
+.brief-copy-btn.copied {
+  color: var(--brief-sentiment-success);
+  border-color: rgba(76, 195, 138, 0.4);
+  background: rgba(76, 195, 138, 0.1);
+}
+
+.brief-copy-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--brief-btn-text);
+}
+
+.brief-copy-icon.copied {
+  color: var(--brief-sentiment-success);
+}
+
+/* --------------------------------------------------------------------------
+   Structured Highlight Grid (Objection, Competitor, Sentiment)
+   -------------------------------------------------------------------------- */
+.brief-highlight-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .brief-highlight-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* Individual Metric Card */
+.brief-metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.15rem;
+  border-radius: 1rem;
+  background: var(--brief-bg-inner-box);
+  border: 1px solid var(--brief-border-inner);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.brief-metric-card:hover {
+  border-color: rgba(247, 244, 201, 0.35);
+}
+
+/* Objection Card Specific Border */
+.brief-metric-card.objection-card {
+  border-color: var(--brief-objection-border);
+}
+
+.brief-metric-card.objection-card:hover {
+  border-color: var(--brief-objection-color);
+}
+
+/* Metric Label Header */
+.brief-metric-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.725rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.65rem;
+}
+
+.brief-metric-header.danger {
+  color: var(--brief-objection-color);
+}
+
+.brief-metric-header.cream {
+  color: var(--brief-metric-header-cream, #F7F4C9);
+}
+
+.brief-metric-header.cream .brief-metric-icon {
+  color: var(--brief-metric-header-cream, #F7F4C9);
+}
+
+.brief-metric-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/* Metric Value */
+.brief-metric-value {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--brief-text-body);
+  line-height: 1.4;
+  text-transform: capitalize;
+}
+
+.brief-metric-value.italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--brief-text-secondary);
+}
+
+/* Competitor Pill */
+.brief-competitor-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--brief-bg-pill);
+  color: var(--brief-text-title);
+  font-weight: 700;
+  font-size: 0.875rem;
+  border: 1px solid var(--brief-border-inner);
+}
+
+/* Sentiment Badge Pill */
+.brief-sentiment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.brief-sentiment-badge.hesitant {
+  background: rgba(239, 107, 115, 0.15);
+  color: var(--brief-sentiment-hesitant);
+  border-color: rgba(239, 107, 115, 0.35);
+  box-shadow: 0 0 10px rgba(239, 107, 115, 0.2);
+}
+
+.brief-sentiment-badge.warming {
+  background: rgba(231, 184, 75, 0.15);
+  color: var(--brief-sentiment-warning);
+  border-color: rgba(231, 184, 75, 0.35);
+  box-shadow: 0 0 10px rgba(231, 184, 75, 0.2);
+}
+
+.brief-sentiment-badge.positive {
+  background: rgba(76, 195, 138, 0.15);
+  color: var(--brief-sentiment-success);
+  border-color: rgba(76, 195, 138, 0.35);
+  box-shadow: 0 0 10px rgba(76, 195, 138, 0.2);
+}
+
+.brief-sentiment-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+}
+
+.brief-sentiment-dot.hesitant {
+  background: var(--brief-sentiment-hesitant);
+  box-shadow: 0 0 8px var(--brief-sentiment-hesitant);
+}
+
+.brief-sentiment-dot.warming {
+  background: var(--brief-sentiment-warning);
+  box-shadow: 0 0 8px var(--brief-sentiment-warning);
+}
+
+.brief-sentiment-dot.positive {
+  background: var(--brief-sentiment-success);
+  box-shadow: 0 0 8px var(--brief-sentiment-success);
+}
+
+/* Metric Bottom Caption */
+.brief-metric-caption {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--brief-border-inner);
+  font-size: 0.6875rem;
+  color: var(--brief-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   AI Pre-Call Executive Briefing Section
+   -------------------------------------------------------------------------- */
+.brief-ai-section {
+  margin-bottom: 2rem;
+}
+
+.brief-ai-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brief-text-title);
+  margin-bottom: 0.75rem;
+}
+
+.brief-ai-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--brief-accent);
+}
+
+/* Pre-call Briefing Content Box */
+.brief-ai-box {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: var(--brief-bg-inner-box);
+  border: 1px solid var(--brief-border-inner);
+  color: var(--brief-text-body);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  font-family: inherit;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 640px) {
+  .brief-ai-box {
+    padding: 2rem;
+    font-size: 0.9375rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Key Customer Quote & Next Step Promised Footer
+   -------------------------------------------------------------------------- */
+.brief-quote-footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1.15rem 1.35rem;
+  border-radius: 1rem;
+  background: var(--brief-bg-footer);
+  border: 1px solid var(--brief-border-inner);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.brief-quote-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--brief-accent);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.brief-quote-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.brief-quote-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brief-text-title);
+}
+
+.brief-quote-text {
+  font-size: 0.95rem;
+  font-style: italic;
+  font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+  color: var(--brief-text-quote);
+  line-height: 1.45;
+}
+
+.brief-next-step {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--brief-text-secondary);
+  margin-top: 0.4rem;
+}
+
+.brief-next-step-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--brief-accent);
+}
+
+.brief-next-step-val {
+  font-weight: 600;
+  color: var(--brief-text-title);
+}

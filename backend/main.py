@@ -12,14 +12,26 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # Path setup to reliably locate files whether script is run from project root or backend directory
-BASE_DIR = Path(__file__).resolve().parent.parent  # deal-intelligence-agent directory
+BASE_DIR = Path(__file__).resolve().parent  # backend directory
+PROJECT_ROOT = BASE_DIR.parent              # deal-intelligence-agent directory
 
-# Load .env file from deal-intelligence-agent directory or parent workspace root
-load_dotenv(BASE_DIR / ".env")
-load_dotenv(BASE_DIR.parent / ".env")
+ENV_PATH = BASE_DIR / ".env"
+
+print("ENV PATH:", ENV_PATH)
+print("ENV EXISTS:", ENV_PATH.exists())
+
+load_dotenv(ENV_PATH, override=True)
+
+print("GROQ KEY AVAILABLE:", bool(os.getenv("GROQ_API_KEY")))
+print("GROQ MODEL:", os.getenv("GROQ_MODEL"))
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-DATA_FILE_PATH = BASE_DIR / "data" / "mock_calls.json"
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+DATA_FILE_PATH = (
+    PROJECT_ROOT / "data" / "mock_calls.json"
+    if (PROJECT_ROOT / "data" / "mock_calls.json").exists()
+    else BASE_DIR / "data" / "mock_calls.json"
+)
 
 app = FastAPI(title="Deal Intelligence Agent API")
 
@@ -112,7 +124,11 @@ Keep the brief concise, structured, actionable, and formatted in clear plain tex
     }
 
     # High-speed model priority list on Groq LPUs with 20s timeout per call
-    models_to_try = ["llama-3.3-70b-versatile", "openai/gpt-oss-120b", "llama-3.1-8b-instant"]
+    env_model = os.getenv("GROQ_MODEL") or GROQ_MODEL
+    models_to_try = [env_model] if env_model else []
+    for m in ["openai/gpt-oss-120b", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
+        if m not in models_to_try:
+            models_to_try.append(m)
 
     for model_name in models_to_try:
         payload = {
@@ -138,6 +154,8 @@ Keep the brief concise, structured, actionable, and formatted in clear plain tex
                 brief_text = result_json["choices"][0]["message"]["content"]
                 BRIEF_CACHE[cache_key] = brief_text
                 return brief_text
+            else:
+                print(f"[BACKEND WARNING] Model {model_name} returned status {response.status_code}")
         except Exception as e:
             print(f"[BACKEND WARNING] Model {model_name} failed or timed out: {e}")
             continue

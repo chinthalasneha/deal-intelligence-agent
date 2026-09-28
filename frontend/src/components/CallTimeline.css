@@ -1,0 +1,382 @@
+/* ==========================================================================
+   CALL TIMELINE COLOR PALETTE (CUSTOMIZE ALL COLORS HERE)
+   Change any color variable below to immediately customize this timeline!
+   ========================================================================== */
+:root {
+  /* --- 1. Header (Title & Legend) --- */
+  --timeline-title-color: #F7F4C9;              /* "Sales Call Memory Timeline" header */
+  --timeline-legend-text: #F7F4C9;              /* Legend text ("Hesitant", "Warming Up", etc.) */
+
+  /* --- 2. Calls Stepper Container --- */
+  --timeline-box-bg: #103D30;                   /* Calls green background */
+  --timeline-box-border: #F7F4C9;              /* Cream border between project & calls */
+  --timeline-box-border-width: 2px;             /* Cream border width */
+  --timeline-box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 25px rgba(247, 244, 201, 0.08);
+
+  /* --- 3. Progress Track Line --- */
+  --timeline-track-bg: rgba(247, 244, 201, 0.18); /* Unfilled track background */
+
+  /* --- 4. Call Labels & Badges --- */
+  --timeline-call-label: #F7F4C9;               /* "Call #1", "Call #2", etc. (Cream) */
+  --timeline-badge-bg: #0B3529;                 /* Sentiment badge background */
+  --timeline-badge-border: rgba(247, 244, 201, 0.18); /* Sentiment badge border */
+
+  /* --- 5. Active Node Button --- */
+  --timeline-active-node-bg: #F7F4C9;           /* Active call circle: Cream */
+  --timeline-active-node-text: #072A20;         /* Active call number: Dark Green */
+  --timeline-active-node-ring: rgba(247, 244, 201, 0.4); /* Active call pulsing ring */
+
+  /* --- 6. Sentiment Colors --- */
+  --timeline-color-danger: #EF6B73;             /* Hesitant / Cautious (Red) */
+  --timeline-color-warning: #E7B84B;            /* Warming Up (Amber) */
+  --timeline-color-success: #4CC38A;            /* Positive / Ready (Green) */
+
+  /* --- 7. Tooltip Popup --- */
+  --timeline-tooltip-bg: #0B3529;               /* Tooltip background */
+  --timeline-tooltip-border: rgba(247, 244, 201, 0.2);
+  --timeline-tooltip-text: #F7F4C9;
+}
+
+/* ==========================================================================
+   CALL TIMELINE ELEMENT STYLES (PURE CSS - NO INLINE UTILITIES)
+   ========================================================================== */
+
+/* Full-Width Outer Container (w-full my-8) */
+.timeline-root {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+/* Top Header Bar */
+.timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.timeline-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeline-title-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--timeline-title-color);
+  flex-shrink: 0;
+}
+
+.timeline-title-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--timeline-title-color);
+  margin: 0;
+}
+
+/* Sentiment Legend */
+.timeline-legend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--timeline-legend-text);
+}
+
+.timeline-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.timeline-legend-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.timeline-legend-dot.danger {
+  background-color: var(--timeline-color-danger);
+}
+
+.timeline-legend-dot.warning {
+  background-color: var(--timeline-color-warning);
+}
+
+.timeline-legend-dot.success {
+  background-color: var(--timeline-color-success);
+}
+
+/* --------------------------------------------------------------------------
+   Calls Stepper Box Container (Calls Green Background + Cream Border)
+   -------------------------------------------------------------------------- */
+.timeline-stepper-box {
+  position: relative;
+  background: var(--timeline-box-bg);
+  border: var(--timeline-box-border-width, 2px) solid var(--timeline-box-border);
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  box-shadow: var(--timeline-box-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .timeline-stepper-box {
+    padding: 2rem 3rem;
+  }
+}
+
+/* Progress Connecting Line */
+.timeline-track {
+  position: absolute;
+  top: 50%;
+  left: 2.5rem;
+  right: 2.5rem;
+  transform: translateY(-50%);
+  height: 4px;
+  background: var(--timeline-track-bg);
+  border-radius: 9999px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .timeline-track {
+    left: 3.5rem;
+    right: 3.5rem;
+  }
+}
+
+.timeline-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--timeline-color-danger) 0%, var(--timeline-color-warning) 50%, var(--timeline-color-success) 100%);
+}
+
+/* Stepper Nodes Row */
+.timeline-nodes-row {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeline-node-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   Node Button & Circular Indicators
+   -------------------------------------------------------------------------- */
+.timeline-node-btn {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .timeline-node-btn {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Active Selected Node */
+.timeline-node-btn.is-selected {
+  background: var(--timeline-active-node-bg);
+  color: var(--timeline-active-node-text);
+  box-shadow: 0 0 0 4px var(--timeline-active-node-ring), 0 8px 25px rgba(247, 244, 201, 0.35);
+  transform: scale(1.1);
+}
+
+/* Outer Pulsing Ring on Active Node */
+.timeline-node-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 2px solid var(--timeline-active-node-bg);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Completed Node */
+.timeline-node-btn.is-completed {
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Future / Upcoming Node */
+.timeline-node-btn.is-upcoming {
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+.timeline-node-btn.is-upcoming:hover {
+  opacity: 1;
+}
+
+/* Node Backgrounds by Sentiment */
+.timeline-node-btn.sentiment-danger {
+  background-color: var(--timeline-color-danger);
+  box-shadow: 0 0 14px rgba(239, 107, 115, 0.4);
+}
+
+.timeline-node-btn.sentiment-warning {
+  background-color: var(--timeline-color-warning);
+  box-shadow: 0 0 14px rgba(231, 184, 75, 0.4);
+}
+
+.timeline-node-btn.sentiment-success {
+  background-color: var(--timeline-color-success);
+  box-shadow: 0 0 14px rgba(76, 195, 138, 0.4);
+}
+
+.timeline-node-btn.sentiment-neutral {
+  background-color: #6F9787;
+}
+
+/* --------------------------------------------------------------------------
+   Call Labels & Sentiment Badges
+   -------------------------------------------------------------------------- */
+.timeline-call-info {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.timeline-call-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--timeline-call-label);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.timeline-call-label.is-selected {
+  transform: scale(1.08);
+  font-weight: 800;
+  color: var(--timeline-title-color);
+}
+
+.timeline-sentiment-badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 9999px;
+  background: var(--timeline-badge-bg);
+  border: 1px solid var(--timeline-badge-border);
+}
+
+.timeline-sentiment-badge.danger {
+  color: var(--timeline-color-danger);
+}
+
+.timeline-sentiment-badge.warning {
+  color: var(--timeline-color-warning);
+}
+
+.timeline-sentiment-badge.success {
+  color: var(--timeline-color-success);
+}
+
+.timeline-sentiment-badge.neutral {
+  color: #A8C9B8;
+}
+
+/* --------------------------------------------------------------------------
+   Hover Tooltip
+   -------------------------------------------------------------------------- */
+.timeline-tooltip {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 0.75rem;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.timeline-node-item:hover .timeline-tooltip {
+  display: flex;
+}
+
+.timeline-tooltip-card {
+  background: var(--timeline-tooltip-bg);
+  color: var(--timeline-tooltip-text);
+  font-size: 0.75rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--timeline-tooltip-border);
+  width: 12rem;
+  text-align: left;
+}
+
+.timeline-tooltip-date {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--timeline-tooltip-text);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-tooltip-stage {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--timeline-title-color);
+  margin-bottom: 0.25rem;
+  text-transform: capitalize;
+}
+
+.timeline-tooltip-quote {
+  font-size: 0.6875rem;
+  color: rgba(247, 244, 201, 0.8);
+  font-style: italic;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 0;
+}
+
+.timeline-tooltip-arrow {
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--timeline-tooltip-bg);
+  transform: rotate(45deg);
+  margin-top: -0.3125rem;
+  border-right: 1px solid var(--timeline-tooltip-border);
+  border-bottom: 1px solid var(--timeline-tooltip-border);
+}

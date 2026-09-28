@@ -202,27 +202,27 @@ export default function App() {
   const nextCallNumber = totalCallsAvailable + 1;
 
   return (
-    <div className="min-h-screen bg-[#14110d] text-slate-100 relative flex flex-col font-sans">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] relative flex flex-col font-sans">
       {/* Background Decorative Ambient Glow Orbs */}
-      <div className="fixed top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="fixed bottom-10 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="fixed top-0 left-1/4 w-96 h-96 bg-[var(--bg-secondary)]/40 rounded-full blur-[140px] pointer-events-none" />
+      <div className="fixed bottom-10 right-1/4 w-96 h-96 bg-[var(--color-cream)]/5 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Top Header */}
       <Header isBackendConnected={isBackendConnected} />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 z-10">
+      <main className="flex-1 w-full page-container py-8 space-y-8 z-10 dashboard-container">
         
         {/* Hero & App Intro */}
-        <div className="text-center max-w-2xl mx-auto pt-2 pb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-pink-500/15 border border-purple-500/20 text-purple-300 text-xs font-semibold mb-3">
-            <BrainCircuit className="w-4 h-4 text-purple-400" />
+        <div className="text-center w-full max-w-4xl mx-auto pt-2 pb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-cream)]/10 border border-[var(--border-primary)] text-[var(--color-cream)] text-xs font-semibold mb-3">
+            <BrainCircuit className="w-4 h-4 text-[var(--color-cream)]" />
             AI Sales Memory & Pre-Call Intelligence
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[var(--color-cream)]">
             Smart Call History Briefings
           </h2>
-          <p className="text-sm text-slate-400 mt-2">
+          <p className="text-sm sm:text-base text-[var(--color-cream)] mt-2 max-w-2xl mx-auto opacity-90">
             Select an account to view historical sales calls, track buyer sentiment shifts across calls, and generate AI pre-call briefs powered by Groq.
           </p>
         </div>
@@ -236,13 +236,13 @@ export default function App() {
 
         {/* Action Controls & New Call Button */}
         {selectedCustomer && (
-          <div className="flex items-center justify-between max-w-4xl mx-auto border-t border-[#2e2820]/60 pt-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full border-t border-[var(--border-primary)] pt-6 gap-4">
             <div>
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <h3 className="text-lg sm:text-xl font-bold text-[var(--color-cream)] flex items-center gap-2">
                 <span>{selectedCustomer.customer_name}</span>
-                <span className="text-xs font-normal text-slate-400">({selectedCustomer.company_name})</span>
+                <span className="text-xs font-normal text-[var(--color-cream)]">({selectedCustomer.company_name})</span>
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--color-cream)] font-medium">
                 Timeline records & instant pre-call briefing
               </p>
             </div>
@@ -251,19 +251,19 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => fetchBrief(selectedCustomer.customer_name, selectedCallNumber)}
-                className="px-3.5 py-2 rounded-xl bg-[#1a1612] hover:bg-[#241f1a] text-slate-300 border border-[#2e2820] text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2 rounded-xl bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] text-[var(--color-cream)] border border-[var(--border-primary)] text-xs font-semibold flex items-center gap-1.5 transition-colors"
                 title="Refresh Brief"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-purple-400' : ''}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[var(--color-cream)]' : ''}`} />
                 <span>Refresh</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#a855f7] hover:opacity-95 text-white text-xs font-bold shadow-lg shadow-purple-500/20 flex items-center gap-1.5 transition-all transform hover:-translate-y-0.5"
+                className="px-4 py-2 rounded-xl bg-[var(--button-primary)] hover:bg-[var(--hover-primary)] text-[var(--button-primary-text)] text-xs font-extrabold shadow-lg shadow-[var(--color-cream)]/20 flex items-center gap-1.5 transition-all transform hover:-translate-y-0.5"
               >
-                <PlusCircle className="w-4 h-4" />
+                <PlusCircle className="w-4 h-4 text-[var(--button-primary-text)]" />
                 <span>Log Call #{nextCallNumber}</span>
               </button>
             </div>
@@ -283,13 +283,13 @@ export default function App() {
         {loading ? (
           <LoadingState message="Recalling memory..." />
         ) : error ? (
-          <div className="max-w-xl mx-auto my-8 p-6 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm text-center flex flex-col items-center gap-2">
-            <AlertCircle className="w-8 h-8 text-rose-400" />
+          <div className="w-full max-w-2xl mx-auto my-8 p-6 rounded-2xl bg-[var(--status-danger)]/15 border border-[var(--status-danger)]/30 text-[var(--status-danger)] text-sm text-center flex flex-col items-center gap-2">
+            <AlertCircle className="w-8 h-8 text-[var(--status-danger)]" />
             <p className="font-bold">Unable to generate brief</p>
-            <p className="text-xs text-rose-400/80">{error}</p>
+            <p className="text-xs text-[var(--status-danger)]/80">{error}</p>
             <button
               onClick={() => fetchBrief(selectedCustomer.customer_name, selectedCallNumber)}
-              className="mt-2 px-4 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-xs font-semibold text-rose-200 border border-rose-500/40"
+              className="mt-2 px-4 py-1.5 rounded-xl bg-[var(--status-danger)]/20 hover:bg-[var(--status-danger)]/30 text-xs font-semibold text-[var(--text-primary)] border border-[var(--status-danger)]/40"
             >
               Retry Request
             </button>
@@ -303,12 +303,12 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[#2e2820]/60 py-6 text-center text-xs text-slate-500 mt-auto">
+      <footer className="border-t border-[var(--border-secondary)] py-6 text-center text-xs text-[var(--text-muted)] mt-auto w-full page-container">
         <div className="flex items-center justify-center gap-2 mb-1">
-          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-          <span className="font-semibold text-slate-400">DealSense AI</span> — AI-powered Deal Intelligence Agent
+          <Sparkles className="w-3.5 h-3.5 text-[var(--color-cream)]" />
+          <span className="font-semibold text-[var(--color-cream)]">DealSense AI</span> — AI-powered Deal Intelligence Agent
         </div>
-        <p>Built with FastAPI, Python, Groq LLM, React & Tailwind CSS</p>
+        <p className="text-[var(--text-muted)]">Built with FastAPI, Python, Groq LLM, React & Tailwind CSS</p>
       </footer>
 
       {/* Log Call Modal */}
