@@ -142,5 +142,29 @@
     "deal_stage": "negotiation",
     "key_quote": "We signed the contract! Onboarding starts Monday.",
     "next_step_promised": "Kickoff meeting"
+  },
+  {
+    "customer_name": "Rahul Sharma",
+    "company_name": "Zenith Textiles",
+    "call_number": 6,
+    "date": "2026-09-28",
+    "objection_raised": "Concerned about implementation time",
+    "competitor_mentioned": "FabricFlow",
+    "sentiment": "positive",
+    "deal_stage": "closed won",
+    "key_quote": "I need confidence that implementation will be completed quickly.",
+    "next_step_promised": "Send implementation timeline and schedule a final review."
+  },
+  {
+    "customer_name": "Rahul Sharma",
+    "company_name": "Zenith Textiles",
+    "call_number": 7,
+    "date": "2026-09-28",
+    "objection_raised": "Needs a clear onboarding timeline",
+    "competitor_mentioned": "FabricFlow",
+    "sentiment": "positive",
+    "deal_stage": "closed won",
+    "key_quote": "The implementation plan looks good, but I want to know exactly when our team will be live.",
+    "next_step_promised": "Send the detailed onboarding timeline and confirm the kickoff date."
   }
 ]

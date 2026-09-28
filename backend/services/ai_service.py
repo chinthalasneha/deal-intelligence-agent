@@ -5,7 +5,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+groq_api_key = os.getenv("GROQ_API_KEY")
+if not groq_api_key:
+    raise ValueError("GROQ_API_KEY is missing. Add it to your .env file.")
+
+client = Groq(api_key=groq_api_key)
 MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
 
