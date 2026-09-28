@@ -1,0 +1,1 @@
+"Create a requirements.txt file in the project root listing every Python package my backend needs, based on the imports in backend/main.py."
