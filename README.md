@@ -73,7 +73,7 @@ The application follows this flow:
 ---
 
 ## 🏗️ 2. Architecture
-
+![Architecture](./screenshots/archi.jpeg)
 ---
 
 ## 🛠️ 3. Tech Stack
@@ -906,7 +906,7 @@ npm install
 npm run dev
 
 🏗️ 32. Overall Architecture
-![Architecture](./screenshots/archi.jpeg)
+
 
                         ┌──────────────────────┐
                         │    React / Vite      │
