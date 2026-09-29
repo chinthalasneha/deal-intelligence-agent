@@ -4,7 +4,14 @@ import aiohttp
 from dotenv import load_dotenv
 from hindsight_client import Hindsight
 
+from pathlib import Path
+
 # 1. Load the .env file using python-dotenv
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+for env_path in [BASE_DIR / ".env", PROJECT_ROOT / ".env"]:
+    if env_path.exists():
+        load_dotenv(env_path)
 load_dotenv()
 
 # 2. Read environment variables

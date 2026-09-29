@@ -2,12 +2,19 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from hindsight_client import Hindsight
+try:
+    from hindsight_client import Hindsight
+except ImportError:
+    Hindsight = None
 
 
-# Load .env from the project root
+# Load .env from the project root or backend directory
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-load_dotenv(PROJECT_ROOT / ".env")
+BASE_DIR = Path(__file__).resolve().parents[1]
+
+for env_file in [BASE_DIR / ".env", PROJECT_ROOT / ".env"]:
+    if env_file.exists():
+        load_dotenv(env_file)
 
 api_key = os.getenv("HINDSIGHT_API_KEY")
 
@@ -23,11 +30,15 @@ bank_id = os.getenv(
 
 client = None
 
-if api_key:
-    client = Hindsight(
-        base_url=base_url,
-        api_key=api_key
-    )
+if api_key and Hindsight is not None:
+    try:
+        client = Hindsight(
+            base_url=base_url,
+            api_key=api_key
+        )
+    except Exception as e:
+        print(f"[HINDSIGHT WARNING] Failed to initialize client: {e}")
+        client = None
 
 
 def retain_memory(content: str, tags: list[str] | None = None):
