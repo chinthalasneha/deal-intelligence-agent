@@ -166,5 +166,17 @@
     "deal_stage": "closed won",
     "key_quote": "The implementation plan looks good, but I want to know exactly when our team will be live.",
     "next_step_promised": "Send the detailed onboarding timeline and confirm the kickoff date."
+  },
+  {
+    "customer_name": "Priya Nair",
+    "company_name": "Coastal Foods Ltd",
+    "call_number": 4,
+    "date": "2026-09-29",
+    "objection_raised": "discount is less",
+    "competitor_mentioned": "Amazon",
+    "sentiment": "neutral",
+    "deal_stage": "negotiation",
+    "key_quote": "Fabric is good ",
+    "next_step_promised": "Buy "
   }
 ]
