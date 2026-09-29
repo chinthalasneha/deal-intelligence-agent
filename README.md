@@ -8,6 +8,10 @@ Groq is used as the LLM layer to analyze the conversation history and generate a
 
 ---
 
+## 🚀 Live Demo
+
+🔗 **[Try DealMind Live](https://deal-intelligence-agent-phi.vercel.app/)**
+
 ## 🧠 1. What DealMind Does
 
 The application follows this flow:
