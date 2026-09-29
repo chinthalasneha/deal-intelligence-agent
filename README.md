@@ -46,21 +46,29 @@ The application follows this flow:
 
 ![DealMind Dashboard](./screenshots/img1.png)
 
+
+
 ### 👤 2. Customer Details
 
 ![Customer Details](./screenshots/img2.png)
+
+
 
 ### 📞 3. Call History
 
 ![Call History](./screenshots/img3.png)
 
+
+
 ### 📋 4. Pre-Call Intelligence Brief
 
 ![Pre-Call Brief](./screenshots/img4.png)
 
+
+
 ### 🧠 5. Hindsight Memory
 
-![Hindsight Memory](./screenshots/hindsight.png)
+![Hindsight Memory](./screenshots/hindsight.jpeg)
 
 ---
 
@@ -187,7 +195,7 @@ npm --version
 
 ## 📥 6. Clone the Project
 
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/chinthalasneha/deal-intelligence-agent
 
 Enter the project:
 
@@ -384,7 +392,8 @@ memory_statement = (
     f"Key quote: \"{c_quote}\". "
     f"Next step: {c_next}."
 )
-The memory is associated with the customer and company.
+
+## The memory is associated with the customer and company.
 
 Example:
 
@@ -400,7 +409,7 @@ Example:
 
 💡 15. Why Store Structured Memories?
 
-Instead of sending every historical conversation to the LLM every time, DealMind stores important information as persistent memory.
+### Instead of sending every historical conversation to the LLM every time, DealMind stores important information as persistent memory.
 
 This allows the system to remember things such as:
 
@@ -897,6 +906,7 @@ npm install
 npm run dev
 
 🏗️ 32. Overall Architecture
+![Architecture](./screenshots/archi.jpeg)
 
                         ┌──────────────────────┐
                         │    React / Vite      │
